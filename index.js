@@ -11,31 +11,21 @@ let getQuestionBank = function(){
 		type: 'GET',
 		data: config.params
 	}).done( (response)=>{
-		return response; 
+		return response.results; 
 	});
 };
 
-let main = new Vue({
-	el: '#main',
-	data: {
-		questions: getQuestionBank()
+new Vue({
+	el: '#trivia',
+	data: function(){
+		return {
+			questions: getQuestionBank()
+		}
 	}
 });
 
-let questionMain = new Vue({
-	el: '#question-main'
-});
+Vue.component('question-main', {
+	props: ['question'],
+	template: '<div> Question: {{question}} </div>',
+})
 
-let questionHeader = new Vue({
-	el: '#question-header'
-});
-
-let questionBody = new Vue({
-	el: '#question-body'
-});
-
-let run = function(){
-	getQuestionBank()
-};
-
-run();
