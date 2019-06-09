@@ -5,27 +5,33 @@ let config = {
 	}
 }
 
-let getQuestionBank = function(){
+function getQuestionBank(){
+	let self = this;
 	return $.ajax({
 		url: config.reqBase,
 		type: 'GET',
-		data: config.params
-	}).done( (response)=>{
-		return response.results; 
+		data: config.params,
+		success: function(results){
+			self.questions = results.results;
+			return self.questions;
+		},
+		error: function(error){
+			console.log(error);
+		}
 	});
 };
 
 new Vue({
 	el: '#trivia',
 	data: function(){
-		return {
-			questions: getQuestionBank()
+		return { 
+			questions: [] 
 		}
-	}
+	},
+	beforeCreate: getQuestionBank
 });
 
 Vue.component('question-main', {
 	props: ['question'],
-	template: '<div> Question: {{question}} </div>',
+	template: '<div> Q {{question.question}} </div>',
 })
-
