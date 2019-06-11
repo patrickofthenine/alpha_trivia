@@ -5,7 +5,9 @@
 	</head>
 	<body>
 		<div id='trivia'>
-			<question-main v-for="question in questions" v-bind:question="question"></question-main>
+			<question-main v-for="question in questions" v-bind:question="question">
+				{{question}}
+			</question-main>
 		</div>	<!-- end main-->
 		<script src='./index.js'></script>
 	</body>
