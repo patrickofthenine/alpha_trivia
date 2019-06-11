@@ -69,25 +69,37 @@ function formatQuestionBank(questionBank){
 	}	
 }
 
-
 let questionMain = Vue.component('question-main', {
 	props: ['question'],
-	template: `
+	template: 
+	`
 		<div>
 			<question-header v-bind:question="question.question"></question-header>
-			<question-answers v-bind:answers="question.incorrect_answers"></question-answers>
+			<question-body v-bind:answers="question.formatted_answers"></question-body>
 		</div>
 	`
 });
 
 let questionHeader = Vue.component('question-header', {
 	props: ['question'],
-	template: '<div>HEADER {{question}} </div>'
+	template: 
+	` 
+		<div> 
+			<span class="question-header"><h2>{{question}}</h2></span>
+		</div>
+	`
 })
 
-let questionAnswers = Vue.component('question-answers', {
+let questionAnswers = Vue.component('question-body', {
 	props: ['answers'],
-	template: '<div> BODY {{answers}} </div>'
+	template: 
+	`
+		<div>
+			<ol>
+				<li v-for="answer in answers.answers">{{answer}}</li>
+			</ol>
+		</div>'
+	`
 })
 
 new Vue({
